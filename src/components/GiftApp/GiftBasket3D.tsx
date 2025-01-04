@@ -71,9 +71,9 @@ const GiftBasket3D = ({ items, onItemDrop, onRemoveItem }: GiftBasket3DProps) =>
   };
 
   const packContainers = [
-    { title: "Pack Principal", item: items[0], className: "col-span-full mb-4" },
-    { title: "Pack Secondaire 1", item: items[1], className: "col-span-1" },
-    { title: "Pack Secondaire 2", item: items[2], className: "col-span-1" }
+    { title: "Grand format", item: items[0], className: "col-span-full mb-4" },
+    { title: "Format standard", item: items[1], className: "col-span-1" },
+    { title: "Format standard", item: items[2], className: "col-span-1" }
   ];
 
   return (
