@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, Suspense } from 'react';
 import { useLocation } from 'react-router-dom';
 import TopNavbar from '@/components/TopNavbar';
 import Footer from '@/components/Footer';
@@ -16,13 +16,13 @@ const GiftUniversePage = () => {
   const [showGiftBox, setShowGiftBox] = useState(false);
   const [showNewPage, setShowNewPage] = useState(false);
   const location = useLocation();
-  const [currentComponent, setCurrentComponent] = useState(null);
+  const [currentComponent, setCurrentComponent] = useState<React.ReactNode>(null);
 
-  useEffect(() => {
+  React.useEffect(() => {
     const routePath = location.pathname;
     const lastSegment = routePath.substring(routePath.lastIndexOf('/') + 1);
 
-    const componentMap = {
+    const componentMap: Record<string, React.ReactNode> = {
       packprestige: <WelcomePackPrestige onCompose={() => setShowGiftBox(true)} />,
       packpremium: <WelcomePackPremium onCompose={() => setShowGiftBox(true)} />,
       packtrio: <WelcomePackTrio onCompose={() => setShowGiftBox(true)} />,
@@ -42,13 +42,15 @@ const GiftUniversePage = () => {
       </div>
       <br />
       <div className="flex flex-col items-center justify-center">
-        {showNewPage ? (
-          <GiftApp />
-        ) : showGiftBox ? (
-          <GiftBox onAnimationComplete={() => setShowNewPage(true)} />
-        ) : (
-          currentComponent
-        )}
+        <Suspense fallback={<div>Loading...</div>}>
+          {showNewPage ? (
+            <GiftApp />
+          ) : showGiftBox ? (
+            <GiftBox onAnimationComplete={() => setShowNewPage(true)} />
+          ) : (
+            currentComponent
+          )}
+        </Suspense>
       </div>
       <Footer />
     </div>
