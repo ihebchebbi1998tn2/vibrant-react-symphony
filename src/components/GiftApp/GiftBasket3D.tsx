@@ -31,14 +31,12 @@ const GiftBasket3D = ({ items, onItemDrop, onRemoveItem }: GiftBasket3DProps) =>
     setShowAddDialog(true);
     playTickSound();
     
-    // Set particle position at drop location
     const rect = e.currentTarget.getBoundingClientRect();
     setParticlePosition({
       x: e.clientX - rect.left,
       y: e.clientY - rect.top,
     });
 
-    // Reset particle position after animation
     setTimeout(() => {
       setParticlePosition(null);
     }, 1000);
@@ -92,7 +90,6 @@ const GiftBasket3D = ({ items, onItemDrop, onRemoveItem }: GiftBasket3DProps) =>
 
   return (
     <div className="space-y-4">
-      {/* Main Pack Container */}
       <div className="grid grid-cols-1 gap-4">
         <div className="relative">
           <GiftPackContainer
@@ -101,7 +98,7 @@ const GiftBasket3D = ({ items, onItemDrop, onRemoveItem }: GiftBasket3DProps) =>
             item={packContainers[0].item}
             onDrop={handleDrop(0)}
             onItemClick={handleProductClick}
-            onRemoveItem={handleRemoveItem}
+            onRemoveItem={() => handleRemoveItem(0)}
             containerIndex={0}
             className="h-[300px] bg-white/95 backdrop-blur-sm shadow-xl rounded-xl border border-gray-100 transition-all duration-300 hover:shadow-2xl hover:border-[#700100]/20"
           />
@@ -111,7 +108,6 @@ const GiftBasket3D = ({ items, onItemDrop, onRemoveItem }: GiftBasket3DProps) =>
         </div>
       </div>
 
-      {/* Secondary Packs Container */}
       <div className="grid grid-cols-2 gap-4">
         {packContainers.slice(1).map((pack, index) => (
           <div key={index + 1} className="relative">
@@ -120,7 +116,7 @@ const GiftBasket3D = ({ items, onItemDrop, onRemoveItem }: GiftBasket3DProps) =>
               item={pack.item}
               onDrop={handleDrop(index + 1)}
               onItemClick={handleProductClick}
-              onRemoveItem={handleRemoveItem}
+              onRemoveItem={() => handleRemoveItem(index + 1)}
               containerIndex={index + 1}
               className="h-[250px] bg-white/95 backdrop-blur-sm shadow-xl rounded-xl border border-gray-100 transition-all duration-300 hover:shadow-2xl hover:border-[#700100]/20"
             />
